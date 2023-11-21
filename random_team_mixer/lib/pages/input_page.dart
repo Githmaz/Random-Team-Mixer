@@ -8,8 +8,8 @@ class RandomTeamMixer extends StatefulWidget {
 }
 
 class _RandomTeamMixerState extends State<RandomTeamMixer> {
-  TextEditingController _textFieldController = TextEditingController();
-  List<String> nameList = [];
+  final TextEditingController _textFieldController = TextEditingController();
+  Set<String> nameList = {};
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,6 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
               TextField(
                 controller: _textFieldController,
                 decoration: const InputDecoration(
-                
                   labelText: 'Enter Name',
                 ),
               ),
@@ -40,8 +39,17 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
               Expanded(
                 child: SingleChildScrollView(
                   child: DataTable(
-                    columns: const [
-                      DataColumn(label: Text("Name List")),
+                    columns: [
+                      DataColumn(
+                        label: Container(
+                          alignment: Alignment.center,
+                          child: const Text(
+                            "Name List",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14),
+                          ),
+                        ),
+                      ),
                     ],
                     rows: nameList
                         .map(
@@ -65,12 +73,18 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
   }
 
   void addNameToList() {
+
     String newName = _textFieldController.text;
-    if (newName.isNotEmpty) {
-      setState(() {
-        nameList.add(newName);
-        _textFieldController.clear();
-      });
+
+    if (nameList.contains(newName)) {
+      return;
     }
+    if (newName.isEmpty) {
+      return;
+    }
+    setState(() {
+      nameList.add(newName);
+      _textFieldController.clear();
+    });
   }
 }
