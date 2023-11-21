@@ -17,10 +17,10 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text("Random Team Mixer"),
-          backgroundColor: Colors.grey,
+          backgroundColor: Color.fromARGB(255, 23, 120, 206),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(25.0),
+          padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
               TextField(
@@ -30,15 +30,21 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: () {
-                  addNameToList();
-                },
-                child: const Text("Add to List"),
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  onPressed: () {
+                    addNameToList();
+                  },
+                  child: const Text("Add to List"),
+                ),
               ),
+              const SizedBox(height: 50.0),
               Expanded(
                 child: SingleChildScrollView(
-                  child: DataTable(
+                  child: nameList.isEmpty
+                      ? Container():DataTable(
+                    headingRowHeight: 70,
                     columns: [
                       DataColumn(
                         label: Container(
@@ -46,23 +52,43 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
                           child: const Text(
                             "Name List",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 14),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ),
+                      const DataColumn(label: Text("")),
+                      const DataColumn(label: Text("")),
                     ],
                     rows: nameList
                         .map(
-                          (item) => DataRow(
+                          (name) => DataRow(
                             cells: [
                               DataCell(
-                                Text(item),
+                                Text(' '+name),
                               ),
+                               const DataCell(
+                                Text(''),
+                              ),
+                              DataCell(IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () {
+                                  removeNameFromList(name);
+                                },
+                              ))
                             ],
                           ),
                         )
                         .toList(),
                   ),
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text("Confirm"),
                 ),
               )
             ],
@@ -73,7 +99,6 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
   }
 
   void addNameToList() {
-
     String newName = _textFieldController.text;
 
     if (nameList.contains(newName)) {
@@ -87,4 +112,11 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
       _textFieldController.clear();
     });
   }
+
+  void removeNameFromList(String name) {
+    setState(() {
+      nameList.remove(name);
+    });
+  }
 }
+
