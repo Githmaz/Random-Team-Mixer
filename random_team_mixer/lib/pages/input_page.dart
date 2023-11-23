@@ -13,97 +13,93 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Random Team Mixer"),
-          backgroundColor: const Color.fromARGB(255, 23, 120, 206),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 30.0),
-                child: TextField(
-                  controller: _textFieldController,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter Name',
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Random Team Mixer"),
+        backgroundColor: const Color.fromARGB(255, 23, 120, 206),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: TextField(
+                controller: _textFieldController,
+                decoration: const InputDecoration(
+                  labelText: 'Enter Name',
                 ),
               ),
-              SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                  onPressed: () {
-                    addNameToList();
-                  },
-                  child: const Text("Add to List"),
-                ),
+            ),
+            SizedBox(
+              width: 200,
+              child: ElevatedButton(
+                onPressed: () {
+                  addNameToList();
+                },
+                child: const Text("Add to List"),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 40.0),
-                  child: SingleChildScrollView(
-                    child: nameList.isEmpty
-                        ? Container()
-                        : DataTable(
-                            headingRowHeight: 70,
-                            columns: [
-                              DataColumn(
-                                label: Container(
-                                  alignment: Alignment.center,
-                                  child: const Text(
-                                    "Name List",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
+                child: SingleChildScrollView(
+                  child: nameList.isEmpty
+                      ? Container()
+                      : DataTable(
+                          headingRowHeight: 70,
+                          columns: [
+                            DataColumn(
+                              label: Container(
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  "Name List",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
                                   ),
                                 ),
                               ),
-                              const DataColumn(label: Text("")),
-                            ],
-                            rows: nameList
-                                .map(
-                                  (name) => DataRow(
-                                    cells: [
-                                      DataCell(
-                                        SizedBox(
-                                          width: 160,
-                                          child: Text(' $name'),
-                                        ),
+                            ),
+                            const DataColumn(label: Text("")),
+                          ],
+                          rows: nameList
+                              .map(
+                                (name) => DataRow(
+                                  cells: [
+                                    DataCell(
+                                      SizedBox(
+                                        width: 160,
+                                        child: Text(' $name'),
                                       ),
-                                      DataCell(
-                                        IconButton(
-                                          icon: const Icon(Icons.delete),
-                                          onPressed: () {
-                                            removeNameFromList(name);
-                                          },
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                  ),
+                                    ),
+                                    DataCell(
+                                      IconButton(
+                                        icon: const Icon(Icons.delete),
+                                        onPressed: () {
+                                          removeNameFromList(name);
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                              .toList(),
+                        ),
                 ),
               ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RandomTeamMixer()));
-                  },
-                  child: const Text("Confirm"),
-                ),
-              )
-            ],
-          ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                Navigator.pushNamed(context, '/groupOverview');
+
+                },
+                child: const Text("Confirm"),
+              ),
+            )
+          ],
         ),
       ),
     );

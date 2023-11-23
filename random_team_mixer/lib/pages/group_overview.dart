@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+class GroupOverView extends StatefulWidget {
+  const GroupOverView({super.key});
 
   @override
+  State<GroupOverView> createState() => _GroupOverViewState();
+}
+
+class _GroupOverViewState extends State<GroupOverView> {
+  final Set<String> nameList = {} ;
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(),
+      body: const Text("xxx"),
+    );
   }
 }

@@ -24,19 +24,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(top: 20.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const RandomTeamMixer()));
-                  },
-                  child: const Text("Let's Start"),
-                ),
-              ),
-              
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const RandomTeamMixer()));
+                   Navigator.pushNamed(context, '/inputPage');
                   },
                   child: const Text("Let's Start"),
                 ),
