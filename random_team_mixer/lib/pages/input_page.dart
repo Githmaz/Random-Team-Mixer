@@ -17,19 +17,21 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text("Random Team Mixer"),
-          backgroundColor: Color.fromARGB(255, 23, 120, 206),
+          backgroundColor: const Color.fromARGB(255, 23, 120, 206),
         ),
         body: Padding(
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              TextField(
-                controller: _textFieldController,
-                decoration: const InputDecoration(
-                  labelText: 'Enter Name',
+              Padding(
+                padding: const EdgeInsets.only(bottom: 30.0),
+                child: TextField(
+                  controller: _textFieldController,
+                  decoration: const InputDecoration(
+                    labelText: 'Enter Name',
+                  ),
                 ),
               ),
-              const SizedBox(height: 20.0),
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
@@ -39,55 +41,64 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
                   child: const Text("Add to List"),
                 ),
               ),
-              const SizedBox(height: 50.0),
               Expanded(
-                child: SingleChildScrollView(
-                  child: nameList.isEmpty
-                      ? Container():DataTable(
-                    headingRowHeight: 70,
-                    columns: [
-                      DataColumn(
-                        label: Container(
-                          alignment: Alignment.center,
-                          child: const Text(
-                            "Name List",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const DataColumn(label: Text("")),
-                      const DataColumn(label: Text("")),
-                    ],
-                    rows: nameList
-                        .map(
-                          (name) => DataRow(
-                            cells: [
-                              DataCell(
-                                Text(' '+name),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 40.0),
+                  child: SingleChildScrollView(
+                    child: nameList.isEmpty
+                        ? Container()
+                        : DataTable(
+                            headingRowHeight: 70,
+                            columns: [
+                              DataColumn(
+                                label: Container(
+                                  alignment: Alignment.center,
+                                  child: const Text(
+                                    "Name List",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
                               ),
-                               const DataCell(
-                                Text(''),
-                              ),
-                              DataCell(IconButton(
-                                icon: const Icon(Icons.delete),
-                                onPressed: () {
-                                  removeNameFromList(name);
-                                },
-                              ))
+                              const DataColumn(label: Text("")),
                             ],
+                            rows: nameList
+                                .map(
+                                  (name) => DataRow(
+                                    cells: [
+                                      DataCell(
+                                        SizedBox(
+                                          width: 160,
+                                          child: Text(' $name'),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        IconButton(
+                                          icon: const Icon(Icons.delete),
+                                          onPressed: () {
+                                            removeNameFromList(name);
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                                .toList(),
                           ),
-                        )
-                        .toList(),
                   ),
                 ),
               ),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RandomTeamMixer()));
+                  },
                   child: const Text("Confirm"),
                 ),
               )
@@ -102,9 +113,13 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
     String newName = _textFieldController.text;
 
     if (nameList.contains(newName)) {
+      showAlert("Duplicate Entry",
+          "The name \"$newName\" is already in the list. Please choose a different name.");
       return;
     }
     if (newName.isEmpty) {
+      showAlert("Invalid Entry",
+          "Please enter a valid name. Null values are not accepted.");
       return;
     }
     setState(() {
@@ -118,5 +133,27 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
       nameList.remove(name);
     });
   }
-}
 
+  void showAlert(String alertTitle, String alertContent) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(alertTitle),
+            content: Text(alertContent),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: TextButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 227, 79, 79),
+                      foregroundColor: const Color.fromARGB(255, 229, 228, 235),
+                      textStyle: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold)),
+                  child: const Text('Ok')),
+            ],
+          );
+        });
+  }
+}
