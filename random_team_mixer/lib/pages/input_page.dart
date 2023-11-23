@@ -93,8 +93,8 @@ class _RandomTeamMixerState extends State<RandomTeamMixer> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                Navigator.pushNamed(context, '/groupOverview');
-
+                  Navigator.pushNamed(context, '/groupOverview',
+                      arguments: {'nameList': nameList});
                 },
                 child: const Text("Confirm"),
               ),

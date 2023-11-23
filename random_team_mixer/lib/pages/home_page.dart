@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(top: 20.0),
                 child: ElevatedButton(
                   onPressed: () {
-                   Navigator.pushNamed(context, '/inputPage');
+                    Navigator.pushNamed(context, '/inputPage');
                   },
                   child: const Text("Let's Start"),
                 ),

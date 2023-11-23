@@ -34,7 +34,7 @@ class GroupCard extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  'Group Members:',
+                  'Group Members :',
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
@@ -45,7 +45,7 @@ class GroupCard extends StatelessWidget {
               // Display group members
               for (String member in group.groupMembers)
                 ListTile(
-                  leading: const Icon(Icons.person, color: Colors.white), 
+                  leading: const Icon(Icons.person, color: Colors.white),
                   title: Text(
                     member,
                     style: const TextStyle(color: Colors.white),

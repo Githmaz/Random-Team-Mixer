@@ -12,13 +12,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
         '/inputPage': (context) => const RandomTeamMixer(),
-        '/groupOverview':(context) => const GroupOverView(),
+        '/groupOverview': (context) => GroupOverView(
+              nameList: (ModalRoute.of(context)!.settings.arguments
+                      as Map<String, dynamic>?)?['nameList'] ??
+                  [],
+            ),
       },
     );
   }
