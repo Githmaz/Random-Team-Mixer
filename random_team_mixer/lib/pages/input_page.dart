@@ -9,7 +9,7 @@ class RandomTeamMixer extends StatefulWidget {
 
 class _RandomTeamMixerState extends State<RandomTeamMixer> {
   final TextEditingController _textFieldController = TextEditingController();
-  Set<String> nameList = {};
+  List<String> nameList = [];
 
   @override
   Widget build(BuildContext context) {

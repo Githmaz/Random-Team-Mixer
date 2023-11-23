@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:random_team_mixer/pages/input_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

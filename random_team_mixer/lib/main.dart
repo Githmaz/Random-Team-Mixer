@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:random_team_mixer/pages/group_overview.dart';
+import 'package:random_team_mixer/pages/group_overview_page.dart';
 import 'package:random_team_mixer/pages/home_page.dart';
 import 'package:random_team_mixer/pages/input_page.dart';
 
