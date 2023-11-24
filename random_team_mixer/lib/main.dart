@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
-        '/inputPage': (context) => const RandomTeamMixer(),
+        '/inputPage': (context) => const InputPage(),
         '/groupOverview': (context) => GroupOverView(
               nameList: (ModalRoute.of(context)!.settings.arguments
                       as Map<String, dynamic>?)?['nameList'] ??

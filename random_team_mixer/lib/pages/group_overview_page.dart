@@ -19,13 +19,22 @@ class _GroupOverViewState extends State<GroupOverView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Groups Overview"),
-        backgroundColor: Colors.teal,
+        backgroundColor: Color.fromARGB(161, 23, 81, 226),
       ),
-      body: ListView(
-        children: GroupModel.generateGroupModels(
-                generateRandomGroups(localNameList, 2))
-            .map((group) => GroupCard(group: group))
-            .toList(),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image:
+                AssetImage("lib/assets/group_overview_page_background.jpg"), // Replace with your image path
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: ListView(
+          children: GroupModel.generateGroupModels(
+                  generateRandomGroups(localNameList, 2))
+              .map((group) => GroupCard(group: group))
+              .toList(),
+        ),
       ),
     );
   }

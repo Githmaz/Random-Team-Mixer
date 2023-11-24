@@ -1,108 +1,135 @@
 import 'package:flutter/material.dart';
 
-class RandomTeamMixer extends StatefulWidget {
-  const RandomTeamMixer({Key? key}) : super(key: key);
+const beginAlignment = Alignment.topLeft;
+const endAlignment = Alignment.bottomRight;
+
+class InputPage extends StatefulWidget {
+  const InputPage({Key? key}) : super(key: key);
 
   @override
-  State<RandomTeamMixer> createState() => _RandomTeamMixerState();
+  State<InputPage> createState() => _RandomTeamMixerState();
 }
 
-class _RandomTeamMixerState extends State<RandomTeamMixer> {
+class _RandomTeamMixerState extends State<InputPage> {
   final TextEditingController _textFieldController = TextEditingController();
   List<String> nameList = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Random Team Mixer"),
-        backgroundColor: const Color.fromARGB(255, 23, 120, 206),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 30.0),
-              child: TextField(
-                controller: _textFieldController,
-                decoration: const InputDecoration(
-                  labelText: 'Enter Name',
+        appBar: AppBar(
+          title: const Text("Random Team Mixer"),
+          backgroundColor: Color.fromARGB(255, 153, 202, 209),
+        ),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: beginAlignment,
+              end: endAlignment,
+              colors: [
+                Color.fromARGB(255, 153, 202, 209),
+                Color.fromARGB(255, 173, 144, 237)
+              ],
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 30.0),
+                  child: TextField(
+                    controller: _textFieldController,
+                    decoration: const InputDecoration(
+                        labelText: 'Enter Name',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors
+                                .white, // Change focused border color here
+                          ),
+                        )),
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(
-              width: 200,
-              child: ElevatedButton(
-                onPressed: () {
-                  addNameToList();
-                },
-                child: const Text("Add to List"),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40.0),
-                child: SingleChildScrollView(
-                  child: nameList.isEmpty
-                      ? Container()
-                      : DataTable(
-                          headingRowHeight: 70,
-                          columns: [
-                            DataColumn(
-                              label: Container(
-                                alignment: Alignment.center,
-                                child: const Text(
-                                  "Name List",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      addNameToList();
+                    },
+                    child: const Text("Add to List"),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 40.0),
+                    child: SingleChildScrollView(
+                      child: nameList.isEmpty
+                          ? Container()
+                          : DataTable(
+                              headingRowHeight: 70,
+                              columns: [
+                                DataColumn(
+                                  label: Container(
+                                    alignment: Alignment.center,
+                                    child: const Text(
+                                      "Name List",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            const DataColumn(label: Text("")),
-                          ],
-                          rows: nameList
-                              .map(
-                                (name) => DataRow(
+                                const DataColumn(label: Text("")),
+                              ],
+                              rows: List.generate(
+                                nameList.length,
+                                (index) => DataRow(
+                                  color:
+                                      MaterialStateProperty.resolveWith<Color?>(
+                                    (Set<MaterialState> states) {
+                                      // Alternate row colors
+                                      return index % 2 == 0
+                                          ? Color.fromARGB(25, 255, 255, 255)
+                                          : null;
+                                    },
+                                  ),
                                   cells: [
                                     DataCell(
                                       SizedBox(
                                         width: 160,
-                                        child: Text(' $name'),
+                                        child: Text(' ${nameList[index]}'),
                                       ),
                                     ),
                                     DataCell(
                                       IconButton(
                                         icon: const Icon(Icons.delete),
                                         onPressed: () {
-                                          removeNameFromList(name);
+                                          removeNameFromList(nameList[index]);
                                         },
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
-                              )
-                              .toList(),
-                        ),
+                              ),
+                            ),
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/groupOverview',
+                          arguments: {'nameList': nameList});
+                    },
+                    child: const Text("Confirm"),
+                  ),
+                )
+              ],
             ),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/groupOverview',
-                      arguments: {'nameList': nameList});
-                },
-                child: const Text("Confirm"),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   void addNameToList() {
