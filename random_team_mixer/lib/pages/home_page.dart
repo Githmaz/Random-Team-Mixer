@@ -25,16 +25,14 @@ class _HomePageState extends State<HomePage> {
           ),
           backgroundColor: const Color.fromARGB(190, 43, 63, 216),
         ),
-        body: Stack(
-          alignment: Alignment.center,
-          children: [
-            Image.asset(
-              'lib/assets/home_page_background.jpg',
-              height: double.infinity,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            Column(
+        body: Stack(alignment: Alignment.center, children: [
+          Image.asset(
+            'lib/assets/home_page_background.jpg',
+            height: double.infinity,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+          Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -56,10 +54,8 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ]),
+        ]),
       ),
     );
   }

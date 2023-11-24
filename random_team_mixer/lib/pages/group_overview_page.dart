@@ -40,6 +40,8 @@ class _GroupOverViewState extends State<GroupOverView> {
   }
 }
 
+//___________________________   Group dividing Method  ___________________________//
+
 List<List<String>> generateRandomGroups(List<String> names) {
   names.shuffle();
 

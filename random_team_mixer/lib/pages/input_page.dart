@@ -24,90 +24,86 @@ class _InputPage extends State<InputPage> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: beginAlignment,
-            end: endAlignment,
-            colors: [
-              Color.fromARGB(255, 153, 202, 209),
-              Color.fromARGB(255, 173, 144, 237)
-            ],
-          ),
+              begin: beginAlignment,
+              end: endAlignment,
+              colors: [
+                Color.fromARGB(255, 153, 202, 209),
+                Color.fromARGB(255, 173, 144, 237)
+              ]),
         ),
         child: Padding(
           padding: const EdgeInsets.all(30.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 30.0),
-                child: TextField(
-                  controller: _textFieldController,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter Name',
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                      ),
+          child: Column(children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: TextField(
+                controller: _textFieldController,
+                decoration: const InputDecoration(
+                  labelText: 'Enter Name',
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                  onPressed: () {
-                    addNameToList();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.blue, // text color
-                  ),
-                  child: const Text("Add to the List"),
+            ),
+            SizedBox(
+              width: 200,
+              child: ElevatedButton(
+                onPressed: () {
+                  addNameToList();
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue, // text color
                 ),
+                child: const Text("Add to the List"),
               ),
-              // Add Clear All button here
-              nameList.isEmpty
-                  ? Container()
-                  : SizedBox(
-                      width: 200,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          showAlert(
-                              "Clear List Confirmation",
-                              "Are you sure you want to clear the list?",
-                              "Yes");
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.red, // text color
-                        ),
-                        child: const Text("Clear All"),
+            ),
+            // Add Clear All button here
+            nameList.isEmpty
+                ? Container()
+                : SizedBox(
+                    width: 200,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        showAlert("Clear List Confirmation",
+                            "Are you sure you want to clear the list?", "Yes");
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.red, // text color
                       ),
+                      child: const Text("Clear All"),
                     ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: SingleChildScrollView(
-                    child: nameList.isEmpty
-                        ? Container()
-                        : DataTable(
-                            headingRowHeight: 70,
-                            columns: [
-                              DataColumn(
-                                label: Container(
-                                  alignment: Alignment.center,
-                                  child: const Text(
-                                    "Name List",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
+                  ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: SingleChildScrollView(
+                  child: nameList.isEmpty
+                      ? Container()
+                      : DataTable(
+                          headingRowHeight: 70,
+                          columns: [
+                            DataColumn(
+                              label: Container(
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  "Name List",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
                                   ),
                                 ),
                               ),
-                              const DataColumn(label: Text("")),
-                            ],
-                            rows: List.generate(
-                              nameList.length,
-                              (index) => DataRow(
+                            ),
+                            const DataColumn(label: Text("")),
+                          ],
+                          rows: List.generate(
+                            nameList.length,
+                            (index) => DataRow(
                                 color:
                                     MaterialStateProperty.resolveWith<Color?>(
                                   (Set<MaterialState> states) {
@@ -126,40 +122,39 @@ class _InputPage extends State<InputPage> {
                                   ),
                                   DataCell(
                                     IconButton(
-                                      icon: const Icon(Icons.delete),
-                                      onPressed: () {
-                                        setState(() {
-                                          nameList.removeAt(index);
-                                        });
-                                      },
-                                    ),
+                                        icon: const Icon(Icons.delete),
+                                        onPressed: () {
+                                          setState(() {
+                                            nameList.removeAt(index);
+                                          });
+                                        }),
                                   ),
-                                ],
-                              ),
-                            ),
+                                ]),
                           ),
-                  ),
+                        ),
                 ),
               ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    confirmList();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.green, // text color
-                  ),
-                  child: const Text("Confirm"),
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  confirmList();
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.green, // text color
                 ),
+                child: const Text("Confirm"),
               ),
-            ],
-          ),
+            ),
+          ]),
         ),
       ),
     );
   }
+
+//___________________________   Pop up Alert  ___________________________//
 
   void showAlert(String alertTitle, String alertContent, String type) {
     // type = 0 for Clear All Dialog  , type = 1 for warnning Dialogs
@@ -205,6 +200,8 @@ class _InputPage extends State<InputPage> {
         });
   }
 
+//___________________________   Adding Method  ___________________________//
+
   void addNameToList() {
     String newName = _textFieldController.text;
 
@@ -225,6 +222,8 @@ class _InputPage extends State<InputPage> {
       _textFieldController.clear();
     });
   }
+
+//___________________________   Confirm button Method  ___________________________//
 
   void confirmList() {
     if (nameList.length < 14) {
