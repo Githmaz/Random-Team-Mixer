@@ -3,7 +3,7 @@ A small Flutter app designed for generating random groups from user-inputted lis
 
 
 
-# __Main View__
+# __Main Views__
 
 <img src="https://github.com/Githmaz/Random-Team-Mixer/assets/130221728/582b4fc6-f2d9-458d-a3ec-6e45ced11bb9" alt="HomePage" width="30%"/>
 <img src="https://github.com/Githmaz/Random-Team-Mixer/assets/130221728/97f2ccf7-10e1-43ac-bdb3-5c061cd728ea" alt="inputPage" width="30%"/>
