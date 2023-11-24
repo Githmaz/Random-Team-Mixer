@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:random_team_mixer/models/group_model.dart';
 import 'package:random_team_mixer/widget/group_card.dart';
@@ -24,14 +25,13 @@ class _GroupOverViewState extends State<GroupOverView> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image:
-                AssetImage("lib/assets/group_overview_page_background.jpg"), // Replace with your image path
+            image: AssetImage("lib/assets/group_overview_page_background.jpg"),
             fit: BoxFit.cover,
           ),
         ),
         child: ListView(
           children: GroupModel.generateGroupModels(
-                  generateRandomGroups(localNameList, 2))
+                  generateRandomGroups(localNameList))
               .map((group) => GroupCard(group: group))
               .toList(),
         ),
@@ -40,13 +40,28 @@ class _GroupOverViewState extends State<GroupOverView> {
   }
 }
 
-List<List<String>> generateRandomGroups(List<String> inputList, int chunkSize) {
-  List<List<String>> dividedList = [];
+List<List<String>> generateRandomGroups(List<String> names) {
+  names.shuffle();
 
-  for (int i = 0; i < inputList.length - 1; i += chunkSize) {
-    List<String> chunk = inputList.sublist(i, i + chunkSize);
-    dividedList.add(chunk);
+  List<List<String>> groups = [];
+
+  for (int i = 0; i < names.length ~/ 5; i++) {
+    groups.add(names.sublist(i * 5, (i + 1) * 5));
   }
 
-  return dividedList;
+  if (names.length % 5 == 4) {
+    groups.add(names.sublist(names.length - 4, names.length));
+    return groups;
+  }
+
+  for (int i = names.length - names.length % 5; i < names.length; i++) {
+    while (true) {
+      int whichTeam = Random().nextInt(groups.length);
+      if (groups[whichTeam].length < 6) {
+        groups[whichTeam].add(names[i]);
+        break;
+      }
+    }
+  }
+  return groups;
 }

@@ -7,10 +7,10 @@ class InputPage extends StatefulWidget {
   const InputPage({Key? key}) : super(key: key);
 
   @override
-  State<InputPage> createState() => _RandomTeamMixerState();
+  State<InputPage> createState() => _InputPage();
 }
 
-class _RandomTeamMixerState extends State<InputPage> {
+class _InputPage extends State<InputPage> {
   final TextEditingController _textFieldController = TextEditingController();
   List<String> nameList = [];
 
@@ -161,6 +161,50 @@ class _RandomTeamMixerState extends State<InputPage> {
     );
   }
 
+  void showAlert(String alertTitle, String alertContent, String type) {
+    // type = 0 for Clear All Dialog  , type = 1 for warnning Dialogs
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(alertTitle),
+            content: Text(alertContent),
+            actions: [
+              type == "Yes"
+                  ? ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 224, 51, 51),
+                        foregroundColor:
+                            const Color.fromARGB(255, 229, 228, 235),
+                        textStyle: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      child: const Text('No'),
+                    )
+                  : Container(),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (type == "Yes") {
+                      setState(() {
+                        nameList.clear();
+                      });
+                    }
+                  },
+                  style: TextButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 4, 174, 46),
+                      foregroundColor: const Color.fromARGB(255, 229, 228, 235),
+                      textStyle: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold)),
+                  child: Text(type)),
+            ],
+          );
+        });
+  }
+
   void addNameToList() {
     String newName = _textFieldController.text;
 
@@ -183,58 +227,15 @@ class _RandomTeamMixerState extends State<InputPage> {
   }
 
   void confirmList() {
-    if (nameList.length < 8) {
+    if (nameList.length < 14) {
       showAlert(
           "Insufficient Names",
-          "To proceed, the name list must contain more than 8 names. (${8 - nameList.length} names left)",
+          "To proceed, the name list must contain more than 14 names. (${14 - nameList.length} names left)",
           "Ok");
       return;
     }
+
     Navigator.pushNamed(context, '/groupOverview',
         arguments: {'nameList': nameList});
-  }
-
-  void showAlert(String alertTitle, String alertContent, String type) {
-    // type = 0 for Clear All Dialog  , type = 1 for warnning Dialogs
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(alertTitle),
-            content: Text(alertContent),
-            actions: [
-              type == "Yes"
-                  ? ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: TextButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 224, 51, 51),
-                        foregroundColor:
-                            const Color.fromARGB(255, 229, 228, 235),
-                        textStyle: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      child: const Text('No'),
-                    )
-                  : Container(),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    if (type == "Yes") {
-                      setState(() {
-                        nameList.clear();
-                      });
-                    }
-                  },
-                  style: TextButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 4, 174, 46),
-                      foregroundColor: const Color.fromARGB(255, 229, 228, 235),
-                      textStyle: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold)),
-                  child: Text(type)),
-            ],
-          );
-        });
   }
 }
