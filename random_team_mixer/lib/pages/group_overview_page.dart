@@ -19,10 +19,10 @@ class _GroupOverViewState extends State<GroupOverView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Groups Overview"),
-        backgroundColor: Color.fromARGB(161, 23, 81, 226),
+        backgroundColor: const Color.fromARGB(161, 23, 81, 226),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image:
                 AssetImage("lib/assets/group_overview_page_background.jpg"), // Replace with your image path

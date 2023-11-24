@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
                   fontFamily: 'Roboto'),
             ),
           ),
-          backgroundColor: Color.fromARGB(190, 43, 63, 216),
+          backgroundColor: const Color.fromARGB(190, 43, 63, 216),
         ),
         body: Stack(
           alignment: Alignment.center,
@@ -40,9 +40,9 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(
+                    backgroundColor: const Color.fromARGB(
                         255, 116, 47, 228), // Adjust button color
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/inputPage');
                   },
-                  child: Text(
+                  child: const Text(
                     "Let's Start",
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
